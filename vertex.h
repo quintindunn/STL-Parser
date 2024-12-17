@@ -4,6 +4,7 @@
 
 #ifndef VERTEX_H
 #define VERTEX_H
+#include <sys/_types/_size_t.h>
 
 typedef unsigned short attribute;
 
@@ -25,5 +26,12 @@ struct face {
 };
 
 typedef struct face face;
+
+struct stl {
+  size_t triangle_count;
+  face* faces;
+};
+
+typedef struct stl stl;
 
 #endif //VERTEX_H

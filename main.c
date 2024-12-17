@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "ascii_parser.h"
 #include "binary_parser.h"
+#include "walkable_string.h"
 
 struct file_contents {
     size_t length;
@@ -52,11 +54,25 @@ int main(void)
         perror("Error reading file...");
         return 1;
     }
-    const face* faces = binary_stl_parser(contents->buffer, contents->length);
+    stl *bin_output = binary_stl_parser(contents->buffer, contents->length);
+
+    print_face(&bin_output->faces[bin_output->triangle_count-1]);
+    printf("\n");
 
     free(contents->buffer);
     free(contents);
 
-    print_face(faces[0]);
+    contents = get_file("../sample.stl_ascii");
+    if (contents == NULL) {
+        perror("Error reading file...");
+        return 1;
+    }
+    stl *ascii_output = parse_ascii(contents->buffer);
+
+    print_face(&ascii_output->faces[ascii_output->triangle_count-1]);
+
+    free(contents->buffer);
+    free(contents);
+
     return 0;
 }

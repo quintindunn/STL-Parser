@@ -6,4 +6,7 @@ set(CMAKE_C_STANDARD 11)
 add_executable(stl_3d_testing main.c
         vertex.h
         binary_parser.c
+        ascii_parser.c
+        walkable_string.h
+        walkable_string.c
 )

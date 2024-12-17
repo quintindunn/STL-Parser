@@ -8,6 +8,6 @@
 #include "vertex.h"
 #include <stdlib.h>
 
-face* binary_stl_parser(const char* content, size_t size);
-void print_face(face triangle);
+stl* binary_stl_parser(const char* content, size_t size);
+void print_face(const face* triangle);
 #endif //BINARY_PARSER_H

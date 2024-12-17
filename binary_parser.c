@@ -14,26 +14,19 @@ void print_vector(const vector3 vec) {
 	printf("vector3(%f, %f, %f)\n", vec.x, vec.y, vec.z);
 }
 
-void print_face(const face triangle) {
+void print_face(const face* triangle) {
 	printf("Normal: ");
-	print_vector(triangle.normal_vector);
+	print_vector(triangle->normal_vector);
 	printf("A: \t\t");
-	print_vector(triangle.a);
+	print_vector(triangle->a);
 	printf("B: \t\t");
-	print_vector(triangle.b);
+	print_vector(triangle->b);
 	printf("C: \t\t");
-	print_vector(triangle.c);
-	printf("Attributes: %hu", triangle.attributes);
+	print_vector(triangle->c);
+	printf("Attributes: %hu", triangle->attributes);
 }
 
-void print_hex(const unsigned char *buffer, size_t length) {
-	for (size_t i = 0; i < length; i++) {
-		printf("%02X ", buffer[i]);
-	}
-	printf("\n");
-}
-
-face* binary_stl_parser(const char* content, size_t size) {
+stl* binary_stl_parser(const char* content, size_t size) {
 	// Header: first 80 bytes
 	// Number of triangles: next 4 bytes
 	// For each triangle:
@@ -62,5 +55,10 @@ face* binary_stl_parser(const char* content, size_t size) {
 
 	}
 
-	return faces;
+	const stl output = {
+		triangle_count,
+		faces
+	};
+
+	return &output;
 }
