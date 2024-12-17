@@ -54,10 +54,10 @@ int main(void)
         perror("Error reading file...");
         return 1;
     }
-    stl *bin_output = binary_stl_parser(contents->buffer, contents->length);
+    // stl *bin_output = binary_stl_parser(contents->buffer, contents->length);
 
-    print_face(&bin_output->faces[bin_output->triangle_count-1]);
-    printf("\n");
+    // print_face(&bin_output->faces[bin_output->triangle_count-1]);
+    // printf("\n");
 
     free(contents->buffer);
     free(contents);
@@ -69,7 +69,7 @@ int main(void)
     }
     stl *ascii_output = parse_ascii(contents->buffer);
 
-    print_face(&ascii_output->faces[ascii_output->triangle_count-1]);
+    // print_face(&ascii_output->faces[ascii_output->triangle_count-1]);
 
     free(contents->buffer);
     free(contents);

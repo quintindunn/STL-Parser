@@ -17,16 +17,24 @@ stl* parse_ascii(char* content) {
     walkable_string* w_str = construct_walkable_string(content);
 
     // Basic validation.
-    if (!stream_contains(w_str, "solid ")) {
+    if (!stream_contains(w_str, "solid")) {
         perror("Invalid file!");
         return NULL;
     }
 
     // Get the name / attributes of the STL file.
-    move_to_token(w_str, "solid ");
-    const size_t name_length = get_start_next_line_idx(w_str) - 7; // -1 to go back to nl char and -6 "solid " | len = 6
-    w_str->current_idx += 6; // "solid " | len = 6
-    consume_n(w_str, name_length); // Not used but would have name / top attributes.
+    move_to_token(w_str, "solid");
+    w_str->current_idx += 5;
+    int has_name = 0;
+    if (w_str->buffer[w_str->current_idx] != '\n') {
+        has_name = 1;
+    }
+    if (has_name) {
+        w_str->current_idx ++;
+        const size_t name_length = get_start_next_line_idx(w_str) - 1; // -1 to go back to nl char and -6 "solid " | len = 6
+        char* name = consume_n(w_str, name_length); // Not used but would have name / top attributes.
+    }
+
 
     // Iterate through each triangle.
     int face_idx = 0;
